@@ -15,10 +15,7 @@ var db = require("./models");
 
 require("./routes/api-routes.js")(app);
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
