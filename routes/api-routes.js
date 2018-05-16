@@ -3,7 +3,6 @@ var IMDB = require("../scrape")
 
 module.exports = function(app) {
   IMDB.init("https://www.imdb.com/name/nm2656455/") 
-  console.log(IMDB.roles)
 
   app.get("/api/jobs/makeup", function(req, res) {
     db.Job.findAll({
