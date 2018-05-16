@@ -19,11 +19,11 @@ module.exports = function(sequelize, DataTypes) {
   // a user should belong to a job
   User.associate = function(models) {
     // should be able to create a user even if they haven't worked a job
-    User.hasMany(models.Jobs, {
+    /* User.hasMany(models.Jobs, {
       foreignKey: {
         allowNull: true
       }
-    });
+    }); */
   };
     return User;
 };
