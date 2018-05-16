@@ -1,0 +1,40 @@
+#item-title {
+    width: 20px;
+}
+
+#submit {
+margin-top: 20px;
+}
+
+.f7-icons {
+    float: right;
+    margin-right: 14px;
+    margin-top: 10px;
+    color:red
+}
+
+#language-select {
+    position: relative;
+    top: 20px;
+}
+
+#language-title {
+    margin-bottom: 0;
+}
+
+.navbar-inner {
+    background-color: red;
+}
+
+.navbar {
+    color: white;
+}
+
+.md .list .item-inner:after {
+    content: none;
+}
+
+#map {
+    width: 50%;
+    height: 50%;
+}
