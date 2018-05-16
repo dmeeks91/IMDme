@@ -103,9 +103,11 @@ var IMDB = {
                 }
             },
         });
+        return IMDB
     }
-    
 }
+
+module.exports = IMDB
 
 //Get User and all projects 
 IMDB.init("https://www.imdb.com/name/nm2656455/");

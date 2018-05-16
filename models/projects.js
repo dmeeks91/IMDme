@@ -1,7 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
-      // unique imdb id
-      userID: {
+    var Project = sequelize.define("Project", {
+      projectID: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -11,7 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
-  });
-  return User
-});
-  
+    });
+    return Project
+}
