@@ -1,0 +1,41 @@
+#wPage{
+    height: 100%;
+}
+#wLogo{
+    margin: auto;
+}
+
+#wBtn 
+{
+    width: 60%;
+    margin: auto;
+    background-color: #d32516;
+    margin-top: -6%;
+    box-shadow: 1px 2px 4px #013e7d;
+}
+
+
+img{
+    width: 100%;
+}
+ 
+#map { 
+    width: 100%; 
+    height: 75%; 
+} 
+ 
+#mapblock { 
+    width: 100%; 
+    height: 100%; 
+    position: fixed;
+    right: 0.1%;
+}
+
+#map-button {
+    width: 100%;
+    text-align: center;
+}
+
+.md .block-title {
+    margin: 0;
+}
