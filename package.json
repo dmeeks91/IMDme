@@ -7,7 +7,10 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "mysql2": "^1.5.3",
+<<<<<<< Updated upstream
     "scrape-it": "^5.0.5",
+=======
+>>>>>>> Stashed changes
     "sequelize": "^4.37.7"
   },
   "devDependencies": {},
