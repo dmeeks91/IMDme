@@ -1,4 +1,6 @@
 const scrapeIt = require("scrape-it")
+var db = require("./models");
+
 var IMDB = {
     cast: [],
     user: {},
@@ -19,7 +21,23 @@ var IMDB = {
                     job.title_cast_url = job.title_cast_url[0];
                     job.title_cast_url = `https://www.imdb.com${job.title_cast_url}fullcredits?ref_=tt_cl_sm#cast`
                     job.user_id = self.user.id;
-                    self.projects.push(job);
+                    // self.projects.push(job);
+                    db.User.create({
+                        userID: job.user_id,
+                        name: "Pete",
+                        });
+                      db.Job.create({
+                        userID: job.user_id,
+                        roleID: job.role_short,
+                        projectID: job.title_id
+                      });
+                      db.Project.create({
+                        name: job.title,
+                        projectID: job.title_id
+                      })
+                      db.Role.create({
+                        name: job.role
+                      })
                 })
                 if (self.roles.length === indx) 
                 {
@@ -41,8 +59,8 @@ var IMDB = {
                 cast.name_url = `https://www.imdb.com${cast.name_url}`;
             })
             self.cast = data.users;
-            console.log("Film Cast");
-            console.log(self.cast);
+            // console.log("Film Cast");
+            // console.log(self.cast);
         });
     },
     getRoles: function() {
@@ -110,7 +128,6 @@ var IMDB = {
 module.exports = IMDB
 
 //Get User and all projects 
-IMDB.init("https://www.imdb.com/name/nm2656455/");
 
 //Get all Cast Memebers
-IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");
+// IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");
