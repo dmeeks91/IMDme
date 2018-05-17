@@ -1,0 +1,52 @@
+<template>
+	<div class="page">
+		<div class="topnav">
+			<a href="/contact/">Contact Us</a>
+			<a href="/profile/">Profile</a>
+			<a class="active" href="/login/">Log In</a>
+		</div>
+  		<div class="container-contact100">
+			<div class="wrap-contact100">
+				<form class="contact100-form validate-form">
+					<div class="profileDiv">
+					<img class="userImage" src="https://s31.postimg.cc/6zbb5hstn/default-user-image.png" alt="user image">
+					<p class="userName"></p>
+					<select class="userName">
+						<option value="" disabled selected>Select User</option>
+						<option value="user1">User 1</option>
+						<option value="user2">User 2</option>
+						<option value="user3">User 3</option>
+						<option value="user4">User 4</option>
+					</select>
+					</div>
+					<div class="mainButtons login100-form-bgbtn ">
+						<button id="jobButton" class="button"><a href="" target="_blank">My Jobs</button>
+						<button id="groupButton" class="button"><a href="" target="_blank">My Groups</button>
+						<button id="friendsButton" class="button"><a href="" target="_blank">My Friends</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="dropDownSelect1"></div>
+	</div>		
+</template>
+<script>
+	return {
+		methods: {
+		},
+		data: function() {
+			return {
+			}
+		},
+		on: {
+			pageMounted: function(e, page) {
+			},
+			pageInit: function(e, page) {
+			},
+			pageBeforeIn: function(e, page) {
+			},
+			pageAfterIn: function(e, page) {
+			}
+		}
+	}
+</script>
