@@ -13,5 +13,5 @@ module.exports = function(sequelize, DataTypes) {
       updatedAt: DataTypes.DATE,
   });
   return User
-});
+};
   

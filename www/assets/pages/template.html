@@ -1,0 +1,76 @@
+<template>
+<body>
+	<div class="topnav">
+		<a href="#contact">Contact Us</a>
+		<a href="#profile">Profile</a>
+		<a class="logIn" href="#home">Log In</a>
+	</div>
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<div class="profileDiv">
+		      <img class="userImage" src="images/icons/default-user-image.png" alt="user image">
+		      <p class="userName"></p>
+		      <select class="userName">
+			    <option value="" disabled selected>Select User</option>
+			    	<option value="user1">User 1</option>
+			    	<option value="user2">User 2</option>
+			    	<option value="user3">User 3</option>
+			    	<option value="user4">User 4</option>
+			  </select>
+		    </div>
+		    <div class="mainButtons login100-form-bgbtn ">
+				<button id="jobButton" class="button"><a href="" target="_blank">My Jobs</button>
+				<button id="groupButton" class="button"><a href="" target="_blank">My Groups</button>
+				<button id="friendsButton" class="button"><a href="" target="_blank">My Friends</button>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/select2/select2.min.js"></script>
+	<script src="javascript/contact.js"></script>
+	<script src="javascript/profile.js"></script>
+	<script src="javascript/routes.js"></script>
+</body>
+
+</template>
+<script>
+    return {
+        methods: {
+            addBSSS: function(){
+                usrComplaint.createBSSS(true);
+            }
+        },
+        data: function() {
+            return {
+            }
+        },
+        on: {
+            pageBeforeIn: function(e, page) {
+                if (bodySystems.length === 0)
+                {
+                    usrComplaint.createBSSS(true);
+                }
+                else
+                {
+                    /* console.log('page');
+                    console.log(page);
+                    console.log('e'); 
+                    console.log(e); */
+                    /* usrComplaint.showAllBSSS(); */
+                }
+            },
+            pageAfterIn: function(e, page) {
+                    usrComplaint.upd8Bdg();
+            }
+        }
+    }
+</script>
