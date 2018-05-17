@@ -498,3 +498,8 @@ iframe {
     opacity: 1;
   }
 }
+
+.userImage{
+  height: 50px;
+  width: 50px;
+}
