@@ -10,6 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
+//allows us to serve up pages using Framework7 routing API
+app.use(express.static("www")); 
 
 var db = require("./models");
 
