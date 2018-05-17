@@ -1,15 +1,15 @@
 routes = [
   {
-    path: '/',
+    path: '/home',
     url: './index.html',
   },
   {
-    path: '/userInfo',
-    componentUrl: './assets/pages/userInfo.html',
+    path: '/profile',
+    componentUrl: './assets/pages/template.html',
   },
   {
-    path: '/bSList',
-    componentUrl: './assets/pages/bodySystems.html',
+    path: '/contact',
+    componentUrl: './assets/pages/contact.html',
   },
   {
     path: '/rateSymp/:r8Index/:sVal/:sID/:sCmtID/',

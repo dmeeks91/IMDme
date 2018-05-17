@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
   });
+<<<<<<< HEAD
+  return User
+=======
   return User;
+>>>>>>> 3d0ce86c100fbd518060ddcf014a205735e138db
 };
   
