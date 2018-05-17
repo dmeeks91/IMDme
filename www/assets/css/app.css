@@ -1,9 +1,50 @@
-#item-title {
-    width: 20px;
+body {
+    font-family: 'Poppins', sans-serif !important;
 }
 
-#submit {
-margin-top: 20px;
+.page-content {
+    background: linear-gradient(45deg,#21d4fd, #b721ff);
+}
+
+.appFrame {
+    padding: 5px;
+    height: 100%;
+    padding-top: 30%;
+}
+
+.appFrame.landscape{
+    padding-top: 5%
+}
+
+.navbar, .md .navbar {
+    background: #131313ba;
+}
+
+.subnavbar, .md .subnavbar {
+    background: #0000004d;
+}
+
+.abcRioButtonBlue {
+    background-color: #9747fe9c !important;
+    border: none !important;
+    color: #fff;
+    height: 90%;
+    width: 85% !important;
+    margin: auto !important;
+    max-width: 200px;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+#my-signin2 {
+    width: 100%;
+}
+
+#navTitle {
+    text-align: center;
 }
 
 .f7-icons {
@@ -13,28 +54,30 @@ margin-top: 20px;
     color:red
 }
 
-#language-select {
-    position: relative;
-    top: 20px;
-}
-
-#language-title {
-    margin-bottom: 0;
-}
-
-.navbar-inner {
-    background-color: red;
-}
-
-.navbar {
-    color: white;
-}
-
 .md .list .item-inner:after {
     content: none;
 }
 
-#map {
-    width: 50%;
-    height: 50%;
+.card {
+    background: rgba(255,255,255,.15) !important;
+    position: relative;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 80% !important;
+    max-width: 750px !important;
+    margin: auto !important;
+}
+
+.md .card {
+    margin: unset;
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
+}
+
+.card-header, 
+.card-content,
+.card-footer {
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+    text-align: center !important;
 }
