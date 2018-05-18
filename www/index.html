@@ -38,9 +38,9 @@
           <div class="subnavbar">
             <div class="subnavbar-inner">
               <div class="segmented segmented-raised">
-                <a class="button tab-link tab-link-active" href="/login/">Log In</a>
-                <a class="button tab-link" href="/profile/">Profile</a>
-                <a class="button tab-link" href="/contact/">Contact Us</a>
+                <a id="loginBtn" class="button tab-link tab-link-active" href="#">Log In</a>
+                <a id="profileBtn" class="button tab-link nonLogin disabled" href="/profile/">Profile</a>
+                <a id="feedBtn" class="button tab-link nonLogin disabled" href="/feed/">Feed</a>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
               <div class="card-content card-content-padding">
                 <div class="row">
                   <div class="col-100 tablet-50">
-                      <img id="userImg" src="">
+                      <img id="userImg" src="assets/images/user.png">
                   </div>
                   <div class="col-100 tablet-50">
                       <h3 id="userName"></h3>
@@ -84,9 +84,10 @@
 <script type="text/javascript" src="assets/javascript/googleOAuth.js"></script>
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script type="text/javascript" src="assets/javascript/framework7.min.js"></script>
+<script type="text/javascript" src="assets/javascript/vendor/framework7.min.js"></script>
 <script type="text/javascript" src="assets/javascript/routes.js"></script>
 <script type="text/javascript" src="assets/javascript/config.js"></script>
+<script type="text/javascript" src="assets/javascript/login.js"></script>
 </body>
 
 </html>

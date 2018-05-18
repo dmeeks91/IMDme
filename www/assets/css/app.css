@@ -47,6 +47,10 @@ body {
     text-align: center;
 }
 
+#userImg {
+    width: 40%;
+}
+
 .f7-icons {
     float: right;
     margin-right: 14px;
