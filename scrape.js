@@ -7,43 +7,20 @@ var IMDB = {
     roles: [],
     projects: [],
     getAllProjects: function() {
-        var self = this,
-            indx = 0;
+        var self = this;
         self.roles.forEach(function(role){
             self.scrapeThisProject(role.shortName).then(function({ data, response }){
-                indx++;
                 data.projects.map(function(job){
                     job.role = role.fullName;
                     job.role_short = role.shortName;
-                    job.title_id = job.title_url.split("/");
-                    job.title_id = job.title_id[2];
-                    job.title_cast_url = job.title_url.split("?");
-                    job.title_cast_url = job.title_cast_url[0];
-                    job.title_cast_url = `https://www.imdb.com${job.title_cast_url}fullcredits?ref_=tt_cl_sm#cast`
+                    job.title_id = job.title_url.split("/")[2];
+                    job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
                     job.user_id = self.user.id;
-                    // self.projects.push(job);
-                    db.User.create({
-                        userID: job.user_id,
-                        name: "Pete",
-                        });
-                      db.Job.create({
-                        userID: job.user_id,
-                        roleID: job.role_short,
-                        projectID: job.title_id
-                      });
-                      db.Project.create({
-                        name: job.title,
-                        projectID: job.title_id
-                      })
-                      db.Role.create({
-                        name: job.role
-                      })
+                    db.User.findOrCreate({where: {userID: self.user.id},defaults:{name: self.user.name}});
+                    db.Job.findOrCreate({where: {projectID: job.title_id},defaults:{userID: job.user_id,roleID: job.role_short,}});
+                    db.Role.findOrCreate({where: {short_name: job.role_short},defaults:{name: job.role}});
+                    db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});
                 })
-                if (self.roles.length === indx) 
-                {
-                    console.log("User Portfolio");
-                    console.log(IMDB.projects);
-                }
             });    
         });
         
@@ -52,21 +29,19 @@ var IMDB = {
         const self = this;
         self.scrapeCast(url).then(function({ data, response }) {
             data.users.map(function(cast){
-                cast.name_id = cast.name_url.split("/");
-                cast.name_id = cast.name_id[2];
-                cast.name_url = cast.name_url.split("?");
-                cast.name_url = cast.name_url[0];
-                cast.name_url = `https://www.imdb.com${cast.name_url}`;
+                cast.name_id = cast.name_url.split("/")[2];
+                cast.name_url = `https://www.imdb.com${cast.name_url.split("?")[0]}`;
             })
             self.cast = data.users;
-            // console.log("Film Cast");
-            // console.log(self.cast);
+            console.log("Film Cast");
+            console.log(self.cast);
         });
     },
     getRoles: function() {
         var self = this;
         self.scrapeRoles().then(function({ data, response }){
-            self.roles = data.Roles;
+            self.user.name = data.user[0].name;
+            self.roles = data.roles;
             self.getAllProjects();
         }); 
             
@@ -94,7 +69,11 @@ var IMDB = {
     },
     scrapeRoles: function() {  
         return scrapeIt(this.user.url, {
-            Roles: {
+            user: {
+                listItem: "h1.header",
+                data: {name: ".itemprop"}
+            },
+            roles: {
                 listItem: "#filmography .head",
                 data: {
                     fullName: "a",
@@ -125,9 +104,10 @@ var IMDB = {
     }
 }
 
-module.exports = IMDB
-
 //Get User and all projects 
+//IMDB.init("https://www.imdb.com/name/nm2656455/");
+
+module.exports = IMDB
 
 //Get all Cast Memebers
 // IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");
