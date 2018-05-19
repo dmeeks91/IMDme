@@ -6,6 +6,30 @@ var IMDB = {
     user: {},
     roles: [],
     projects: [],
+    addNewUser: function() {
+        var self = this;
+        if (self.user.gID)
+        {
+           return db.User.findOrCreate({
+                where:{
+                    googleID: self.user.gID
+                }, 
+                defaults:{
+                    imdbID: self.user.imdbID,
+                    name: self.user.name
+                }
+            }) 
+        }
+        return db.User.findOrCreate({
+            where:{
+                imdbID: self.user.imdbID
+            }, 
+            defaults:{
+                googleID: self.user.gID,
+                name: self.user.name
+            }
+        })
+    },
     getAllProjects: function() {
         var self = this;
         self.roles.forEach(function(role){
@@ -16,14 +40,11 @@ var IMDB = {
                     job.title_id = job.title_url.split("/")[2];
                     job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
                     job.user_id = self.user.imdbID;
-                    //db.User.findOrCreate({where: {userID: self.user.id},defaults:{name: self.user.name}});
                     db.Job.findOrCreate({where: {projectID: job.title_id, userID: job.user_id},defaults:{roleID: job.role_short}});
-                    db.Role.findOrCreate({where: {short_name: job.role_short},defaults:{name: job.role}});
                     db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});
                 })
             });    
         });
-        
     },
     getCast: function(url) {
         const self = this;
@@ -33,35 +54,33 @@ var IMDB = {
                 cast.name_url = `https://www.imdb.com${cast.name_url.split("?")[0]}`;
             })
             self.cast = data.users;
-            console.log("Film Cast");
-            console.log(self.cast);
+            /* console.log("Film Cast");
+            console.log(self.cast); */
         });
     },
     getRoles: function() {
         var self = this;
         self.scrapeRoles().then(function({ data, response }){
-            self.user.name = data.user[0].name;
-            self.roles = data.roles;  
-            db.User.findOrCreate({
-                where:{
-                    googleID: self.user.gID
-                }, 
-                defaults:{
-                    imdbID: self.user.imdbID,
-                    name: self.user.name
-                }
-            })   
-            .then(() => {
-                self.getAllProjects();
-            })            
+            //set user Name
+            self.user.name = data.user[0].name;           
+            //set roles and add to db
+            self.setRoles(data.roles);  
+            //check if user is in DB to add or update user details
+            self.userInDB()
+            .then(user => {
+                var action = (user) ? "updateUser" : "addNewUser";
+                self[action]().then(() => {
+                    self.getAllProjects();
+                });
+            })         
         }); 
             
     },
     init: function(gID, imdbID) {
         this.user = {
             url: `https://www.imdb.com/name/${imdbID}/`,
-            imdbID: imdbID,
-            gID: gID 
+            imdbID: (imdbID) ? imdbID : null,
+            gID: (gID) ? gID : null 
         }
         this.getRoles();
     },
@@ -113,13 +132,44 @@ var IMDB = {
             },
         });
         return IMDB
+    },
+    setRoles: function(roleArry) {
+        //set roles array
+        this.roles = roleArry;
+        //Add all roles from roles array to DB if they don't already exist
+        this.roles.forEach(role => {
+            db.Role.findOrCreate({
+                where: {
+                    short_name: role.shortName
+                },
+                defaults:{
+                    name: role.fullName
+                }
+            });
+        });        
+    },
+    updateUser: function(user) {
+        var self = this,
+        param = (self.user.gID) 
+                ? {googleID: self.user.gID} 
+                : {imdbID: self.user.imdbID};
+        
+        return db.User.update(self.user, {where:param});
+    },
+    userInDB: function() {
+        var self = this,
+            param = (self.user.gID) 
+                    ? {googleID: self.user.gID} 
+                    : {imdbID: self.user.imdbID};
+
+        return db.User.findOne({where:param});
     }
 }
 
-module.exports = IMDB
+module.exports = IMDB;
 
 //Get User and all projects 
 //IMDB.init("https://www.imdb.com/name/nm2656455/");
 
 //Get all Cast Memebers
-// IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");
+ //IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");

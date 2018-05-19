@@ -12,14 +12,7 @@ router.get("/api/gUser/:id", function(req, res) {
 });
 
 router.post("/api/user", function(req, res) {
-  //Add user to db if doesn't already exist 
-  /* db.User.findOrCreate({
-    where:{googleID: req.body.googleID}, 
-    defaults:{imdbID: req.body.imdbID}
-  })
-  .then(resultDB => { */
-    IMDB.init(req.body.googleID, req.body.imdbID);
-  /* }); */  
+  IMDB.init(req.body.googleID, req.body.imdbID);
 });
 
 module.exports = router;

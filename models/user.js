@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
       // unique imdb id
       googleID: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true, //Need to allow null inorder to handle adding users from scrape who do not currently have an IMDme account
       },
       imdbID: {
         type: DataTypes.STRING,
