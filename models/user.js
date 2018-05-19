@@ -1,13 +1,17 @@
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
       // unique imdb id
-      userID: {
+      googleID: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      imdbID: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
