@@ -4,6 +4,10 @@ routes = [
     url: './index.html',
   },
   {
+    path: '/login',
+    url: './index.html',
+  },
+  {
     path: '/contact',
     componentUrl: './assets/pages/contact.html',
   },
