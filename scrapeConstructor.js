@@ -36,7 +36,7 @@ function IMDB ()
         var self = this,
             indx = 0;
         return new Promise ((resolve, reject) => {
-            self.roles.forEach(function(role){                
+            self.roles.forEach(function(role){                                
                 self.scrapeThisProject(role.shortName).then(function({ data, response }){
                     indx ++;
                     data.projects.map(function(job){

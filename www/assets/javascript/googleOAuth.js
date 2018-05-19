@@ -3,11 +3,33 @@
     user: {},
     addIMDB: function(data) {
       var self = this;
+      //framework7 router code
       app.request.post("api/user", data, function(userInfo){
         console.log(userInfo);
         self.logIn();
       })
     },
+    getUserProfile: function() {
+      var self = this;
+      app.request.get(`/api/user/profile/${self.user.googleID}`, self.user, 
+        function(data){
+          console.log(data);
+        });
+    },
+    hasUserProfile: function() {
+      var self = this;
+      app.request.get(`/api/gUser/${self.user.googleID}`, self.user, 
+        function(data){
+          if(data === "")
+          {
+            app.sheet.open('.my-sheet');
+          }
+          else
+          {
+            self.logIn();
+          }
+        });
+    },   
     logIn: function() { 
       app.sheet.close('.my-sheet');     
       $("#my-signin2").hide();
@@ -25,20 +47,6 @@
           gOAuth.user = {};
         });
     },
-    hasUserProfile: function() {
-      var self = this;
-      app.request.get(`/api/gUser/${self.user.googleID}`, self.user, 
-        function(data){
-          if(data === "")
-          {
-            app.sheet.open('.my-sheet');
-          }
-          else
-          {
-            self.logIn();
-          }
-        });
-    },   
     notify:  function() {
       return app.notification.create({
         title: 'Invalid URL Entered',
@@ -98,17 +106,16 @@
     });
   }
 
-$(document).ready(function() {
-  $("#loginBtn").on("click", function(){   
-      gOAuth.logOut(); 
+  $(document).ready(function() {
+    $("#loginBtn").on("click", function(){   
+        gOAuth.logOut(); 
+    });    
+    $(".modalBtn").on("click", function(e) {
+        e.preventDefault();
+        gOAuth.validatIMDB();
   });    
-  $(".modalBtn").on("click", function(e) {
-      e.preventDefault();
-      gOAuth.validatIMDB();
-  });  
   
-  
-  $$(document).on("page:beforein", "#index.page" ,function(){
+/*   $$(document).on("page:beforein", "#index.page" ,function(){
     if(gOAuth.user.googleID)
     {
       gOAuth.showImage();
@@ -117,12 +124,6 @@ $(document).ready(function() {
     {
       renderButton();
     }
-  });
-
-  $$(document).on("page:afterin", "#index.page" ,function(){
-    if(gOAuth.user.googleID)
-    {
-      $("#loginBtn").html("Log Out");
-    }
-  });
+  }); */
+  
 });

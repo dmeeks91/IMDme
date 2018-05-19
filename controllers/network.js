@@ -23,6 +23,7 @@ network = {
         return new Promise((resolve, reject) => {
             obj.getCast(projectUrl)
             .then((cast) => {
+                //only add to cast if distinct
                 cast.forEach(person => {
                     if (!self.castList.find(existing => person.name_id === existing.name_id))
                     {
