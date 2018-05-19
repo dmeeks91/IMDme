@@ -1,12 +1,14 @@
 const scrapeIt = require("scrape-it")
 var db = require("./models");
 
-var IMDB = {
-    cast: [],
-    user: {},
-    roles: [],
-    projects: [],
-    addNewUser: function() {
+function IMDB ()
+{
+    this.cast = [];
+    this.user = {};
+    this.roles = [];
+    this.projects = [];
+
+    this.addNewUser = function() {
         var self = this;
         if (self.user.gID)
         {
@@ -29,28 +31,33 @@ var IMDB = {
                 name: self.user.name
             }
         })
-    },
-    getAllProjects: function() {
-        var self = this;
-        self.roles.forEach(function(role){
-            self.scrapeThisProject(role.shortName).then(function({ data, response }){
-                data.projects.map(function(job){
-                    job.role = role.fullName;
-                    job.role_short = role.shortName;
-                    job.title_id = job.title_url.split("/")[2];
-                    job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
-                    job.user_id = self.user.imdbID;
-                    
-                    db.Job.findOrCreate({where: {projectID: job.title_id, userID: job.user_id},defaults:{roleID: job.role_short}});
-                    db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});
-                })
-            });    
+    };
+    this.getAllProjects = function() {
+        var self = this,
+            indx = 0;
+        return new Promise ((resolve, reject) => {
+            self.roles.forEach(function(role){                
+                self.scrapeThisProject(role.shortName).then(function({ data, response }){
+                    indx ++;
+                    data.projects.map(function(job){
+                        //job.role = role.fullName;
+                        //job.role_short = role.shortName;
+                        job.title_id = job.title_url.split("/")[2];
+                        job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
+                        //job.user_id = self.user.imdbID;
+                        self.projects.push(job);
+                        db.Job.findOrCreate({where: {projectID: job.title_id, userID: self.user.imdbID},defaults:{roleID: role.shortName}});
+                        db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});   
+                    });                    
+                    if (indx === self.roles.length) resolve(true);
+                });    
+            });
         });
-    },
-    getCast: function(url) {
+    };
+    this.getCast = function(url) {
         const self = this;
         //scrape cast and return as an array
-        return Promise(function(resolve, reject){            
+        return new Promise(function(resolve, reject){            
             self.scrapeCast(url).then(function({ data, response }) {
                 data.users.map(function(cast){
                     cast.name_id = cast.name_url.split("/")[2];
@@ -60,34 +67,41 @@ var IMDB = {
                 resolve(self.cast);
             });
         })
-    },
-    getRoles: function() {
+    };
+    this.getRoles = function() {
         var self = this;
-        self.scrapeRoles().then(function({ data, response }){
-            //set user Name
-            self.user.name = data.user[0].name;           
-            //set roles and add to db
-            self.setRoles(data.roles);  
-            //check if user is in DB to add or update user details
-            self.userInDB()
-            .then(user => {
-                var action = (user) ? "updateUser" : "addNewUser";
-                self[action]().then(() => {
-                    self.getAllProjects();
-                });
-            })         
-        }); 
+        return new Promise ((resolve, reject) => {            
+            self.scrapeRoles().then(function({ data, response }){
+                //set user Name
+                self.user.name = data.user[0].name;  
+                //set roles and add to db
+                self.setRoles(data.roles);
+                //check if user is in DB to add or update user details
+                self.userInDB()
+                .then(user => {
+                    var action = (user) ? "updateUser" : "addNewUser";
+                    self[action]().then(() => {
+                        self.getAllProjects().then(added => {
+                            resolve(added);
+                        });
+                    });
+                })         
+            }); 
+        })
             
-    },
-    init: function(gID, imdbID) {
-        this.user = {
-            url: `https://www.imdb.com/name/${imdbID}/`,
-            imdbID: (imdbID) ? imdbID : null,
-            gID: (gID) ? gID : null 
-        }
-        this.getRoles();
-    },
-    scrapeCast: function(url) {
+    };
+    this.init = function(gID, imdbID) {
+        var self = this;
+        return new Promise ((resolve, reject) => {
+            self.user = {
+                url: `https://www.imdb.com/name/${imdbID}/`,
+                imdbID: (imdbID) ? imdbID : null,
+                gID: (gID) ? gID : null 
+            }
+            self.getRoles().then(complete => {resolve(complete)});
+        })
+    };
+    this.scrapeCast = function(url) {
         return scrapeIt(url, {
             users: {
                 listItem: "#fullcredits_content .name",
@@ -100,8 +114,8 @@ var IMDB = {
                 }
             }
         })
-    },
-    scrapeRoles: function() {  
+    };
+    this.scrapeRoles = function() {  
         return scrapeIt(this.user.url, {
             user: {
                 listItem: "h1.header",
@@ -118,8 +132,8 @@ var IMDB = {
                 }
             } 
         });
-    },
-    scrapeThisProject: function(type) {
+    };
+    this.scrapeThisProject = function(type) {
         const listVal = `#filmo-head-${type} + .filmo-category-section .filmo-row`;
         return scrapeIt(this.user.url, {
             projects: {
@@ -135,8 +149,8 @@ var IMDB = {
             },
         });
         return IMDB
-    },
-    setRoles: function(roleArry) {
+    };
+    this.setRoles = function(roleArry) {
         //set roles array
         this.roles = roleArry;
         //Add all roles from roles array to DB if they don't already exist
@@ -150,16 +164,16 @@ var IMDB = {
                 }
             });
         });        
-    },
-    updateUser: function(user) {
+    };
+    this.updateUser = function(user) {
         var self = this,
         param = (self.user.gID) 
                 ? {googleID: self.user.gID} 
                 : {imdbID: self.user.imdbID};
         
         return db.User.update(self.user, {where:param});
-    },
-    userInDB: function() {
+    };
+    this.userInDB = function() {
         var self = this,
             param = (self.user.gID) 
                     ? {googleID: self.user.gID} 
@@ -170,9 +184,3 @@ var IMDB = {
 }
 
 module.exports = IMDB;
-
-//Get User and all projects 
-//IMDB.init("https://www.imdb.com/name/nm2656455/");
-
-//Get all Cast Memebers
- //IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast");

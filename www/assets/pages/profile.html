@@ -1,33 +1,25 @@
 <template>
 	<div class="page">
-		<div class="topnav">
-			<a href="/contact/">Contact Us</a>
-			<a href="/profile/">Profile</a>
-			<a class="active" href="/login/">Log In</a>
-		</div>
-  		<div class="container-contact100">
-			<div class="wrap-contact100">
-				<form class="contact100-form validate-form">
-					<div class="profileDiv">
-					<img class="userImage" src="https://s31.postimg.cc/6zbb5hstn/default-user-image.png" alt="user image">
-					<p class="userName"></p>
-					<select class="userName">
-						<option value="" disabled selected>Select User</option>
-						<option value="user1">User 1</option>
-						<option value="user2">User 2</option>
-						<option value="user3">User 3</option>
-						<option value="user4">User 4</option>
-					</select>
-					</div>
-					<div class="mainButtons login100-form-bgbtn ">
-						<button id="jobButton" class="button"><a href="" target="_blank">My Jobs</button>
-						<button id="groupButton" class="button"><a href="" target="_blank">My Groups</button>
-						<button id="friendsButton" class="button"><a href="" target="_blank">My Friends</button>
-					</div>
-				</form>
+		<div class="navbar">
+		<div class="navbar-inner">
+			<div class="left col-33"></div>
+			<div id="navTitle" class="title col-33">IMDme</div>
+			<div class="right col-33"></div>
+			<div class="subnavbar">
+			<div class="subnavbar-inner">
+				<div class="segmented segmented-raised">
+				<a id="loginBtn" class="button tab-link" href="/home/">Home</a>
+				<a id="profileBtn" class="button tab-link tab-link-active nonLogin" href="/profile/">Profile</a>
+				<a id="feedBtn" class="button tab-link nonLogin" href="/feed/">Feed</a>
+				</div>
+			</div>
 			</div>
 		</div>
-		<div id="dropDownSelect1"></div>
+		</div>
+		<div class="page-content">
+		<div class="appFrame">
+		</div>
+		</div>
 	</div>		
 </template>
 <script>
