@@ -14,15 +14,14 @@
 
   <!-- Google OAuth Tags -->
   <meta name="google-signin-client_id" content="428161384857-j73jegqvpqiposv3rdkk5c5ktuqj9gm2.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="assets/css/framework7.min.css">
   <link rel="stylesheet" href="assets/css/framework7-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-  <link rel="stylesheet" href="assets/css/smartSelect.css">
-  <link rel="stylesheet" href="assets/css/welcome.css">
-  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/app.css">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnghntSOf7EteeY_c8Ngej65kyVoktDp0&libraries=places"> </script> 
 
 </head>
@@ -30,64 +29,98 @@
   
 <div id="app">
   <div class="view view-main">
-    <div class="topnav">
-      <a href="/contact/">Contact Us</a>
-      <a href="/profile/">Profile</a>
-      <a class="active" href="/login/">Log In</a>
-    </div>
-    <div class="limiter">
-      <div class="container-login100">
-        <div class="wrap-login100">
-          <form class="login100-form validate-form">
-            <span class="login100-form-title p-b-26">
-              Log In
-              <br>
-              <br>
-              <br>
-              <br>
-            </span>
-            <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-              <input class="input100" type="text" name="email">
-              <span class="focus-input100" data-placeholder="Email"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input" data-validate="Enter password">
-              <span class="btn-show-pass">
-                <i class="zmdi zmdi-eye"></i>
-              </span>
-              <input class="input100" type="password" name="pass">
-              <span class="focus-input100" data-placeholder="Password"></span>
-            </div>
-
-            <div class="container-login100-form-btn">
-              <div class="wrap-login100-form-btn">
-                <div class="login100-form-bgbtn"></div>
-                <button class="login100-form-btn">
-                  Login
-                </button>
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left col-33"></div>
+          <div id="navTitle" class="title col-33">IMDme</div>
+          <div class="right col-33"></div>
+          <div class="subnavbar">
+            <div class="subnavbar-inner">
+              <div class="segmented segmented-raised">
+                <a id="loginBtn" class="button tab-link tab-link-active" href="#">Log In</a>
+                <a id="profileBtn" class="button tab-link nonLogin disabled" href="/profile/">Profile</a>
+                <a id="feedBtn" class="button tab-link nonLogin disabled" href="/feed/">Feed</a>
               </div>
             </div>
-            <div class="text-center p-t-115">
-              <span class="txt1">
-                Don’t have an account?
-              </span>
-              <a class="txt2" href="#">
-                Sign Up
-              </a>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="dropDownSelect1"></div>
+      <div class="page-content">
+        <div class="appFrame">
+            <div class="card">
+              <div class="card-header">
+                <h1 class="title">IMBme</h1>
+              </div>
+              <div class="card-content card-content-padding">
+                <div class="row">
+                  <div class="col-100 tablet-50">
+                      <img id="userImg" src="assets/images/user.png">
+                  </div>
+                  <div class="col-100 tablet-50">
+                      <h3 id="userName"></h3>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div id="my-signin2"></div>
+              </div>
+            </div>
+        </div>
+        
+      </div>
 
+    </div>
+    <div class="sheet-modal my-sheet">
+      <div class="toolbar">
+        <div class="toolbar-inner">
+            <div class="left col-33"></div>
+            <div id = "needIMDB" class="title col-33">Welcome, Dominique!</div>
+            <div class="right col-33"></div>
+        </div>
+      </div>
+      <div class="sheet-modal-inner">
+        <form class="list form-store-data" id="my-form"> 
+          <div class="card">
+            <div class="card-content">
+              <div id="modalText" class="block">
+                <p>It looks like it's your first time here.</p>
+                <p>Please give us the link to your IMDB page so we can start building your network!</p>
+              </div>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">IMDB Home Page Url</div>
+                  <div class="item-input-wrap">
+                    <input id="IMDBUrl" type="text" name="IMDBUrl" placeholder="">                    
+                  </div>
+                  <div class="item-after">
+                      <button class="col modalBtn button button-fill button-round">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>   
+        </form>
+      </div>
+    </div>
   </div>
 </div>  
+<script>
+  $(window).resize(function(){
+      var width = window.screen.width,
+          height = window.screen.height,
+          action = (height < 650 && width > height) ? "addClass" : "removeClass";
 
+      $(".appFrame")[action]("landscape");
+  })
+</script>
+<script type="text/javascript" src="assets/javascript/googleOAuth.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script type="text/javascript" src="assets/javascript/framework7.min.js"></script>
+<script type="text/javascript" src="assets/javascript/vendor/framework7.min.js"></script>
 <script type="text/javascript" src="assets/javascript/routes.js"></script>
 <script type="text/javascript" src="assets/javascript/config.js"></script>
+<script type="text/javascript" src="assets/javascript/login.js"></script>
 </body>
 
 </html>

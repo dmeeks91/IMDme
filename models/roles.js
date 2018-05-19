@@ -5,6 +5,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      short_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     });
