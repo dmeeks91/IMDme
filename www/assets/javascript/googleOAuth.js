@@ -4,10 +4,12 @@
     addIMDB: function(data) {
       var self = this;
       app.request.post("api/user", data, function(userInfo){
-        
+        console.log(userInfo);
+        self.logIn();
       })
     },
-    logIn: function() {      
+    logIn: function() { 
+      app.sheet.close('.my-sheet');     
       $("#my-signin2").hide();
       $("#loginBtn").html("Log Out");
       $(".nonLogin").removeClass("disabled");
@@ -20,6 +22,7 @@
           $("#my-signin2").show();
           $("#loginBtn").html("Log In");
           $(".nonLogin").addClass("disabled");
+          gOAuth.user = {};
         });
     },
     hasUserProfile: function() {
@@ -54,11 +57,13 @@
               familyName: profile.getFamilyName(),
               imgURL: profile.getImageUrl(),
               email: profile.getEmail()
-            };
-        $("#userImg").attr("src",self.user.imgURL);
-        $("#userName").html(self.user.fullName);
-
-        self.hasUserProfile();
+            };        
+          self.showImage();
+    },
+    showImage: function() {
+      $("#userImg").attr("src",this.user.imgURL);
+      $("#userName").html(this.user.fullName);      
+      this.hasUserProfile();
     },
     validatIMDB: function() {
       var self = this,
@@ -100,5 +105,24 @@ $(document).ready(function() {
   $(".modalBtn").on("click", function(e) {
       e.preventDefault();
       gOAuth.validatIMDB();
+  });  
+  
+  
+  $$(document).on("page:beforein", "#index.page" ,function(){
+    if(gOAuth.user.googleID)
+    {
+      gOAuth.showImage();
+    }
+    else
+    {
+      renderButton();
+    }
+  });
+
+  $$(document).on("page:afterin", "#index.page" ,function(){
+    if(gOAuth.user.googleID)
+    {
+      $("#loginBtn").html("Log Out");
+    }
   });
 });

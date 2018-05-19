@@ -1,0 +1,44 @@
+<template>
+        <div class="page">
+            <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left col-33"></div>
+                <div id="navTitle" class="title col-33">IMDme</div>
+                <div class="right col-33"></div>
+                <div class="subnavbar">
+                <div class="subnavbar-inner">
+                    <div class="segmented segmented-raised">
+                    <a id="loginBtn" class="button tab-link" href="/home/">Home</a>
+                    <a id="profileBtn" class="button tab-link nonLogin" href="/profile/">Profile</a>
+                    <a id="feedBtn" class="button tab-link tab-link-active nonLogin" href="/feed/">Feed</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="page-content">
+            <div class="appFrame">
+            </div>
+            </div>
+        </div>		
+    </template>
+    <script>
+        return {
+            methods: {
+            },
+            data: function() {
+                return {
+                }
+            },
+            on: {
+                pageMounted: function(e, page) {
+                },
+                pageInit: function(e, page) {
+                },
+                pageBeforeIn: function(e, page) {
+                },
+                pageAfterIn: function(e, page) {
+                }
+            }
+        }
+    </script>

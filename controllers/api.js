@@ -1,6 +1,8 @@
 var db = require("../models"),
     express = require("express"),
-    IMDB = require("../scrape"),
+    //IMDB = require("../scrape"),
+    networkFunctions = require("./network"),
+    cnstrctIMDB = require("../scrapeConstructor"),
     router = express.Router();
 
 // get route -> index
@@ -12,14 +14,16 @@ router.get("/api/gUser/:id", function(req, res) {
 });
 
 router.post("/api/user", function(req, res) {
-  //Add user to db if doesn't already exist 
-  /* db.User.findOrCreate({
-    where:{googleID: req.body.googleID}, 
-    defaults:{imdbID: req.body.imdbID}
-  })
-  .then(resultDB => { */
-    IMDB.init(req.body.googleID, req.body.imdbID);
-  /* }); */  
+  var imdb = new cnstrctIMDB();
+      imdb.init(req.body.googleID, req.body.imdbID)
+      .then(() =>{
+        res.send(imdb.user);
+        /* networkFunctions.getAll(user.projects)
+        .then(cast => {
+          console.log(cast);
+        }); */
+      });
+  //IMDB.init(req.body.googleID, req.body.imdbID);
 });
 
 module.exports = router;

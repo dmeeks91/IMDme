@@ -4,12 +4,12 @@ routes = [
     url: './index.html',
   },
   {
-    path: '/login',
+    path: '/home',
     url: './index.html',
   },
   {
-    path: '/contact',
-    componentUrl: './assets/pages/contact.html',
+    path: '/feed',
+    componentUrl: './assets/pages/feed.html',
   },
   {
     path: '/profile',
