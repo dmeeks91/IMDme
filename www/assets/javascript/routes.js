@@ -5,7 +5,32 @@ routes = [
   },
   {
     path: '/home',
-    url: './index.html',
+    url: './index.html',    
+    on: {
+      pageAfterIn: function (e, page) {
+        // do something after page gets into the view
+        /* app.router.navigate("/", {
+          reloadCurrent: true,
+          ignoreCache: true,
+        }); */
+        /* if(gOAuth.user.googleID)
+        {
+
+          gOAuth.showImage();
+        }
+        else
+        {
+          renderButton();
+        } */
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+        app.router.navigate("/", {
+          reloadCurrent: true,
+          ignoreCache: true,
+        });
+      }
+    },
   },
   {
     path: '/feed',

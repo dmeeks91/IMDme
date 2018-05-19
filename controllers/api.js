@@ -13,17 +13,32 @@ router.get("/api/gUser/:id", function(req, res) {
   )
 });
 
+router.get("/api/user/profile/:id", function(req, res) {
+  var user = {
+    id:req.params.id,
+  };
+
+  //Get jobs
+
+  //Get connections
+  db.sequelize.query("SELECT COUNT(*) FROM imdme_db.jobs",
+  { type: db.sequelize.QueryTypes.SELECT})
+  .then(count => {
+    console.log(count);
+  });
+
+  
+});
+
 router.post("/api/user", function(req, res) {
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
       .then(() =>{
+        /* networkFunctions.getAll(imdb.projects).then(
+          (castlist) => {console.log(castlist);}
+        ); */
         res.send(imdb.user);
-        /* networkFunctions.getAll(user.projects)
-        .then(cast => {
-          console.log(cast);
-        }); */
       });
-  //IMDB.init(req.body.googleID, req.body.imdbID);
 });
 
 module.exports = router;
