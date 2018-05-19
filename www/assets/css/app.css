@@ -47,8 +47,31 @@ body {
     text-align: center;
 }
 
-#userImg {
+#userImg, #formImg {
     width: 40%;
+}
+
+#my-form {
+    margin: unset;
+}
+
+#modalText {
+    padding-bottom: 3%;
+}
+
+.sheet-modal-inner .item-title.item-label {
+    font-size: 90%;
+    font-weight: bold;
+    line-height: unset;
+}
+
+#IMDBUrl {
+    font-size: 80%;
+    text-align: center;
+}
+
+.modalBtn {
+    margin-top: 5%;
 }
 
 .f7-icons {
