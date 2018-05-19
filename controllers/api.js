@@ -38,8 +38,14 @@ router.post("/api/user", function(req, res) {
           (castlist) => {console.log(castlist);}
         ); */
         res.send(imdb.user);
+        networkFunctions.getAll(user.projects)
+        .then(cast => {
+          console.log(cast);
+        }); 
       });
-});
+})
+  //IMDB.init(req.body.googleID, req.body.imdbID);
+
 
 module.exports = router;
 
