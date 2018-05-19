@@ -37,12 +37,31 @@ var IMDB = {
                 data.projects.map(function(job){
                     job.role = role.fullName;
                     job.role_short = role.shortName;
-                    job.title_id = job.title_url.split("/")[2];
-                    job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
-                    job.user_id = self.user.imdbID;
-                    
-                    db.Job.findOrCreate({where: {projectID: job.title_id, userID: job.user_id},defaults:{roleID: job.role_short}});
-                    db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});
+                    job.title_id = job.title_url.split("/");
+                    job.title_id = job.title_id[2];
+                    job.title_cast_url = job.title_url.split("?");
+                    job.title_cast_url = job.title_cast_url[0];
+                    job.title_cast_url = `https://www.imdb.com${job.title_cast_url}fullcredits?ref_=tt_cl_sm#cast`
+                    job.user_id = self.user.id;
+                    // self.projects.push(job);
+                    db.User.findOrCreate({
+                        where: {
+                        userID: job.user_id,
+                        },
+                        name: "Pete",
+                        });
+                      db.Job.create({
+                        userID: job.user_id,
+                        roleID: job.role_short,
+                        projectID: job.title_id
+                      });
+                      db.Project.findOrCreate({
+                        name: job.title,
+                        projectID: job.title_id
+                      })
+                      db.Role.findOrCreate({
+                        name: job.role
+                      })
                 })
             });    
         });
