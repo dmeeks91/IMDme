@@ -43,7 +43,7 @@ var cardObj = {
                </div>
            </div>
        </div>`;
-    
+   
         $(".page-content").append(card);
     }
 }
