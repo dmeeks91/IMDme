@@ -50,9 +50,7 @@ router.post("/api/user", function(req, res) {
         ); */ 
         res.send({profile: imdb.user, projects: imdb.projects});
       });
-})
-  //IMDB.init(req.body.googleID, req.body.imdbID);
-
+});
 
 
 module.exports = router;

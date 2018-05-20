@@ -5,13 +5,11 @@
   "main": "scrape.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "chai": "^4.1.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "framework7": "^2.2.5",
     "hello.js": "^1.0.0",
     "hellojs": "^1.16.1",
-    "mocha": "^5.2.0",
     "mysql2": "^1.5.3",
     "scrape-it": "^5.0.5",
     "sequelize": "^4.37.7"

@@ -1,6 +1,5 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var imdb = require("./scrapeConstructor.js")
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -21,9 +20,6 @@ db.sequelize.sync().then(function() {
 });
 
 var routes = require("./controllers/api");
-
-imdb.init("", "nm0001099")
-
 
 app.use(routes);
 
