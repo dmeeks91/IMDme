@@ -78,7 +78,7 @@ function IMDB ()
                 self.userInDB()
                 .then(user => {
                     var action = (user) ? "updateUser" : "addNewUser";
-                    self[action]().then(() => {
+                    self[action](user).then(() => {
                         self.getAllProjects().then(added => {
                             resolve(added);
                         });
@@ -166,29 +166,52 @@ function IMDB ()
         });        
     };
     this.updateUser = function(user) {
-        var self = this,
-        param = (self.user.gID) 
+        var self = this;//,
+        /* param = (user.googleID) 
                 ? {googleID: self.user.gID} 
-                : {imdbID: self.user.imdbID};
+                : {imdbID: self.user.imdbID}; */
         
-        return db.User.update(self.user, {where:param});
+        return db.User.update(user, {where:{imdbID: self.user.imdbID}});
     };
     this.userInDB = function() {
-        var self = this,
-            exits = false;
-            //param = (self.user.gID) 
-                    //? {googleID: self.user.gID} 
-                    //: {imdbID: self.user.imdbID};
-        //currently doesn't work for user who's imdbId is already in database before their initial log in
-        db.User.findOne
-        return db.User.findOne({where:param});
+        var self = this;
+        return new Promise((resolve, reject) => {
+            self.findUserInDB("googleID", self.user.gID)
+            .then(gUser => {
+                if (!gUser)
+                {
+                    self.findUserInDB("imdbID", self.user.imdbID)
+                    .then(iUser => {
+                        if(iUser)
+                        {
+                            iUser.dataValues.googleID = self.user.gID;
+                            resolve(iUser.dataValues);
+                        }
+                        else
+                        {
+                            resolve(null);
+                        }
+                    })
+                }
+                else
+                {
+                    resolve(gUser.dataValues);
+                }
+            })
+        });
     };
     this.findUserInDB = function (key, value) {
         if (!value || value === "")
         {
-            return null
+            return new Promise(resolve(null));
         }
-        return db.User
+        else
+        {
+            var param = {};
+            param[key] = value;
+            return db.User.findOne({where:param});
+        }
+        
     };
 }
 
