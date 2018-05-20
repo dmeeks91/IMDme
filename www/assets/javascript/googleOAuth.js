@@ -8,10 +8,7 @@
       app.request.post("api/user", data, function(user){
         user = JSON.parse(user);
         gOAuth.imdb = user;
-        self.logIn();
-        /* app.request.post("api/network", {projects: user.projects}, function(){
-          
-        }) */        
+        self.logIn();     
       })
     },
     getUserProfile: function() {
@@ -33,7 +30,8 @@
           }
           else
           {
-            self.logIn();
+            //self.logIn();
+            
           }
         });
     },   
@@ -81,7 +79,7 @@
       $("#userName").html(this.user.fullName);      
       this.hasUserProfile();
     },
-    validatIMDB: function() {
+    validateIMDB: function() {
       var self = this,
           tempUrl = "https://www.imdb.com/name/",
           userUrl = $("#IMDBUrl")[0].value,
@@ -120,7 +118,7 @@ $(document).ready(function() {
   });    
   $(".modalBtn").on("click", function(e) {
       e.preventDefault();
-      gOAuth.validatIMDB();
+      gOAuth.validateIMDB();
   });    
   
 /*   $$(document).on("page:beforein", "#index.page" ,function(){
