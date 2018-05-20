@@ -35,7 +35,14 @@ var cardObj = {
                 </tr>
                 </tbody>
             </table>
-        </div>`;
+        </div>
+        <div class="block block-strong">
+            <div class="row">
+                <div class="col-100">
+                    <a id="logout-button" href="#" class="button button-raised button-fill popup-open">Log Out</a>
+                </div>
+            </div>
+        </div> `;
         $(".page-content").append(card);
     }
 }

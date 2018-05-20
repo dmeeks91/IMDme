@@ -39,6 +39,14 @@ routes = [
   {
     path: '/profile',
     componentUrl: './assets/pages/profile.html',
+    on: {
+      pageAfterIn: function (e, page) {
+          console.log(cardObj)
+      },
+      pageInit: function (e, page) {
+        // do something when page initialized
+      }
+    }
   },
   // Default route (404 page). MUST BE THE LAST
   {
