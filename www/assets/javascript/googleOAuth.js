@@ -3,10 +3,15 @@
     user: {},
     addIMDB: function(data) {
       var self = this;
+      app.preloader.show();
       //framework7 router code
-      app.request.post("api/user", data, function(userInfo){
-        console.log(userInfo);
+      app.request.post("api/user", data, function(user){
+        user = JSON.parse(user);
+        gOAuth.imdb = user;
         self.logIn();
+        /* app.request.post("api/network", {projects: user.projects}, function(){
+          
+        }) */        
       })
     },
     getUserProfile: function() {
@@ -20,8 +25,10 @@
       var self = this;
       app.request.get(`/api/gUser/${self.user.googleID}`, self.user, 
         function(data){
-          if(data === "")
+          var dataObj = (data === "") ? {imdbID:""} : JSON.parse(data);
+          if(dataObj.imdbID === "")
           {
+            $("#needIMDB").html(`Welcome, ${self.user.givenName}!`);
             app.sheet.open('.my-sheet');
           }
           else
@@ -31,7 +38,8 @@
         });
     },   
     logIn: function() { 
-      app.sheet.close('.my-sheet');     
+      app.sheet.close('.my-sheet');  
+      app.preloader.hide();   
       $("#my-signin2").hide();
       $("#loginBtn").html("Log Out");
       $(".nonLogin").removeClass("disabled");
@@ -106,13 +114,13 @@
     });
   }
 
-  $(document).ready(function() {
-    $("#loginBtn").on("click", function(){   
-        gOAuth.logOut(); 
-    });    
-    $(".modalBtn").on("click", function(e) {
-        e.preventDefault();
-        gOAuth.validatIMDB();
+$(document).ready(function() {
+  $("#loginBtn").on("click", function(){   
+      gOAuth.logOut(); 
+  });    
+  $(".modalBtn").on("click", function(e) {
+      e.preventDefault();
+      gOAuth.validatIMDB();
   });    
   
 /*   $$(document).on("page:beforein", "#index.page" ,function(){

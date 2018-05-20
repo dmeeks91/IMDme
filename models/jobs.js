@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     roleID: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     projectID: {
       type: DataTypes.TEXT,
