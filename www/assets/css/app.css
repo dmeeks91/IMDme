@@ -1,9 +1,12 @@
-body {
-    font-family: 'Poppins', sans-serif !important;
-}
 
-.page-content {
-    background: linear-gradient(45deg,#21d4fd, #b721ff);
+.abcRioButtonBlue {
+    background-color: #9747fe9c !important;
+    border: none !important;
+    color: #fff;
+    height: 90%;
+    width: 85% !important;
+    margin: auto !important;
+    max-width: 200px;
 }
 
 .appFrame {
@@ -16,74 +19,15 @@ body {
     padding-top: 5%
 }
 
-.navbar, .md .navbar {
-    background: #131313ba;
-}
-
-.subnavbar, .md .subnavbar {
-    background: #0000004d;
-}
-
-.abcRioButtonBlue {
-    background-color: #9747fe9c !important;
-    border: none !important;
-    color: #fff;
-    height: 90%;
-    width: 85% !important;
-    margin: auto !important;
-    max-width: 200px;
-}
-
-.title {
-    width: 100%;
+#block-name {
     text-align: center;
-}
-
-#my-signin2 {
-    width: 100%;
-}
-
-#navTitle {
-    text-align: center;
-}
-
-#userImg, #formImg {
-    width: 40%;
-}
-
-#my-form {
-    margin: unset;
-}
-
-#modalText {
-    padding-bottom: 3%;
-}
-
-.sheet-modal-inner .item-title.item-label {
-    font-size: 90%;
     font-weight: bold;
-    line-height: unset;
-    height: 300px;
+    font-size: 30px;
+    padding: 10px;
 }
 
-#IMDBUrl {
-    font-size: 80%;
-    text-align: center;
-}
-
-.modalBtn {
-    margin-top: 5%;
-}
-
-.f7-icons {
-    float: right;
-    margin-right: 14px;
-    margin-top: 10px;
-    color:red
-}
-
-.md .list .item-inner:after {
-    content: none;
+body {
+    font-family: 'Poppins', sans-serif !important;
 }
 
 .card {
@@ -96,12 +40,101 @@ body {
     margin: auto !important;
 }
 
+.card-header, 
+.card-content,
+.card-footer {
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+    text-align: center !important;
+}
+
+.center-cell {
+    text-align: center;
+    font-size: 20px;
+}
+
+.f7-icons {
+    float: right;
+    margin-right: 14px;
+    margin-top: 10px;
+    color:red
+}
+
+#IMDBUrl {
+    font-size: 80%;
+    text-align: center;
+}
+
+#logout-button {
+    background-color: #7326b28f;
+}
+
 .md .card {
     margin: unset;
     -webkit-box-shadow: unset;
     box-shadow: unset;
 }
 
+.md .list .item-inner:after {
+    content: none;
+}
+
+.modalBtn {
+    margin-top: 5%;
+}
+
+#modalText {
+    padding-bottom: 3%;
+}
+
+<<<<<<< HEAD
+.sheet-modal-inner .item-title.item-label {
+    font-size: 90%;
+    font-weight: bold;
+    line-height: unset;
+    height: 300px;
+=======
+#my-form {
+    margin: unset;
+>>>>>>> 7c71d6b3595f47e3a11cddd011fa22a1d7f917f1
+}
+
+#my-signin2 {
+    width: 100%;
+}
+
+.navbar, .md .navbar {
+    background: #131313ba;
+}
+
+#navTitle {
+    text-align: center;
+}
+
+.page-content {
+    background: linear-gradient(45deg,#21d4fd, #b721ff);
+}
+
+#profile-pic {
+    padding-top: 10px;
+}
+
+.sheet-modal-inner .item-title.item-label {
+    font-size: 90%;
+    font-weight: bold;
+    line-height: unset;
+}
+
+.subnavbar, .md .subnavbar {
+    background: #0000004d;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+<<<<<<< HEAD
 .card-header, 
 .card-content,
 .card-footer {
@@ -124,3 +157,10 @@ body {
     
 
 }
+=======
+#userImg, #formImg {
+    width: 40%;
+}
+
+
+>>>>>>> 7c71d6b3595f47e3a11cddd011fa22a1d7f917f1
