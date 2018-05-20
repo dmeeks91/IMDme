@@ -63,6 +63,7 @@ body {
     font-size: 90%;
     font-weight: bold;
     line-height: unset;
+    height: 300px;
 }
 
 #IMDBUrl {
@@ -107,4 +108,19 @@ body {
     padding-top: 3% !important;
     padding-bottom: 3% !important;
     text-align: center !important;
+}
+
+.sheet-modal{
+    height: 300px !important;
+}
+
+#mainLogo{
+    height: 200px;
+      margin-bottom: -30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    
+
 }
