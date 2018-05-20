@@ -25,9 +25,9 @@ app.use(routes);
 
  var IMDBconstruct = require("./scrapeConstructor");
 
-  var imdb = new IMDBconstruct();
+  //var imdb = new IMDBconstruct();
   //imdb.init("","nm0004898");
-  imdb.init("","nm7458565");
+  //imdb.init("","nm7458565");
  
 /*IMDB.getCast("https://www.imdb.com/title/tt3590068/fullcredits?ref_=tt_cl_sm#cast"); */
 
