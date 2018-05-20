@@ -40,11 +40,8 @@ function IMDB ()
                 self.scrapeThisProject(role.shortName).then(function({ data, response }){
                     indx ++;
                     data.projects.map(function(job){
-                        //job.role = role.fullName;
-                        //job.role_short = role.shortName;
                         job.title_id = job.title_url.split("/")[2];
                         job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
-                        //job.user_id = self.user.imdbID;
                         self.projects.push(job);
                         db.Job.findOrCreate({where: {projectID: job.title_id, userID: self.user.imdbID},defaults:{roleID: role.shortName}});
                         db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});   
@@ -54,14 +51,15 @@ function IMDB ()
             });
         });
     };
-    this.getCast = function(url) {
+    this.getCast = function(url, projectID) {
         const self = this;
         //scrape cast and return as an array
         return new Promise(function(resolve, reject){            
             self.scrapeCast(url).then(function({ data, response }) {
-                data.users.map(function(cast){
-                    cast.name_id = cast.name_url.split("/")[2];
-                    cast.name_url = `https://www.imdb.com${cast.name_url.split("?")[0]}`;
+                data.users.map(function(user){
+                    user.id = user.name_url.split("/")[2];
+                    user.url = `https://www.imdb.com${user.name_url.split("?")[0]}`;
+                    user.pID = projectID; 
                 })
                 self.cast = data.users;
                 resolve(self.cast);
@@ -97,8 +95,10 @@ function IMDB ()
                 url: `https://www.imdb.com/name/${imdbID}/`,
                 imdbID: (imdbID) ? imdbID : null,
                 gID: (gID) ? gID : null 
-            }
-            self.getRoles().then(complete => {resolve(complete)});
+            };
+            self.getRoles().then(complete => {
+                resolve(complete)
+            });
         })
     };
     this.scrapeCast = function(url) {
@@ -175,12 +175,21 @@ function IMDB ()
     };
     this.userInDB = function() {
         var self = this,
-            param = (self.user.gID) 
-                    ? {googleID: self.user.gID} 
-                    : {imdbID: self.user.imdbID};
-
+            exits = false;
+            //param = (self.user.gID) 
+                    //? {googleID: self.user.gID} 
+                    //: {imdbID: self.user.imdbID};
+        //currently doesn't work for user who's imdbId is already in database before their initial log in
+        db.User.findOne
         return db.User.findOne({where:param});
-    }
+    };
+    this.findUserInDB = function (key, value) {
+        if (!value || value === "")
+        {
+            return null
+        }
+        return db.User
+    };
 }
 
 module.exports = IMDB;

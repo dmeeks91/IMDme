@@ -1,6 +1,5 @@
 var db = require("../models"),
     express = require("express"),
-    //IMDB = require("../scrape"),
     networkFunctions = require("./network"),
     cnstrctIMDB = require("../scrapeConstructor"),
     router = express.Router();
@@ -30,16 +29,29 @@ router.get("/api/user/profile/:id", function(req, res) {
   
 });
 
+router.post("/api/network", function(req, res) {
+  networkFunctions.init(req.body.projects);
+});
+
 router.post("/api/user", function(req, res) {
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
-      .then(() =>{
-        /* networkFunctions.getAll(imdb.projects).then(
-          (castlist) => {console.log(castlist);}
-        ); */
-        res.send(imdb.user);
+      .then(() => {
+        /* networkFunctions.init(imdb.projects)
+        .then(() => {
+          console.log("Added to Database")}
+          (castlist) => {
+            console.log(castlist);
+             castlist.forEach(person => {
+              //console.log(person);
+              var user = new cnstrctIMDB();
+              user.init(null, person.id); 
+            });
+        ); */ 
+        res.send({profile: imdb.user, projects: imdb.projects});
       });
 });
+
 
 module.exports = router;
 
