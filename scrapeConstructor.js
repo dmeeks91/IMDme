@@ -203,7 +203,7 @@ function IMDB ()
     this.findUserInDB = function (key, value) {
         if (!value || value === "")
         {
-            return new Promise(resolve(null));
+            return Promise.resolve(null);
         }
         else
         {

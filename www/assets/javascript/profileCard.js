@@ -37,12 +37,13 @@ var cardObj = {
             </table>
         </div>
         <div class="block block-strong">
-            <div class="row">
-                <div class="col-100">
-                    <a id="logout-button" href="#" class="button button-raised button-fill popup-open">Log Out</a>
-                </div>
-            </div>
-        </div> `;
+           <div class="row">
+               <div class="col-100">
+                   <a id="logout-button" href="#" class="button button-raised button-fill popup-open">Log Out</a>
+               </div>
+           </div>
+       </div>`;
+   
         $(".page-content").append(card);
     }
 }
