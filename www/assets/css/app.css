@@ -60,6 +60,11 @@ body {
     color:red
 }
 
+#headlogo {
+    width: 400%;
+    margin-top: 5px;
+}
+
 #IMDBUrl {
     font-size: 80%;
     text-align: center;
