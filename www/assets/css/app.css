@@ -87,8 +87,16 @@ body {
     padding-bottom: 3%;
 }
 
+<<<<<<< HEAD
+.sheet-modal-inner .item-title.item-label {
+    font-size: 90%;
+    font-weight: bold;
+    line-height: unset;
+    height: 300px;
+=======
 #my-form {
     margin: unset;
+>>>>>>> 7c71d6b3595f47e3a11cddd011fa22a1d7f917f1
 }
 
 #my-signin2 {
@@ -126,8 +134,33 @@ body {
     text-align: center;
 }
 
+<<<<<<< HEAD
+.card-header, 
+.card-content,
+.card-footer {
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+    text-align: center !important;
+}
+
+.sheet-modal{
+    height: 300px !important;
+}
+
+#mainLogo{
+    height: 200px;
+      margin-bottom: -30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    
+
+}
+=======
 #userImg, #formImg {
     width: 40%;
 }
 
 
+>>>>>>> 7c71d6b3595f47e3a11cddd011fa22a1d7f917f1
