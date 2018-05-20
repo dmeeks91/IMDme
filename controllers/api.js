@@ -8,7 +8,9 @@ var db = require("../models"),
 router.get("/api/gUser/:id", function(req, res) {
   //Check to see if user's google ID exists in db
   db.User.findOne({where:{googleID: req.params.id}}).then(
-    user => {res.send(user);}
+    user => {
+      res.send(user.dataValues);
+    }
   )
 });
 
@@ -20,6 +22,8 @@ router.get("/api/user/profile/:id", function(req, res) {
   //Get jobs
 
   //Get connections
+
+  //Get roles
   db.sequelize.query("SELECT COUNT(*) FROM imdme_db.jobs",
   { type: db.sequelize.QueryTypes.SELECT})
   .then(count => {
@@ -33,7 +37,7 @@ router.post("/api/network", function(req, res) {
   networkFunctions.init(req.body.projects);
 });
 
-router.post("/api/user", function(req, res) {
+router.post("/api/imdb", function(req, res) {
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
       .then(() => {
@@ -48,6 +52,15 @@ router.post("/api/user", function(req, res) {
               user.init(null, person.id); 
             });
         ); */ 
+        res.send({profile: imdb.user, projects: imdb.projects});
+      });
+});
+
+//sync imdb
+router.put("/api/imdb/sync", function(req, res) {
+  var imdb = new cnstrctIMDB();
+      imdb.init(req.body.googleID, req.body.imdbID)
+      .then(() => { 
         res.send({profile: imdb.user, projects: imdb.projects});
       });
 });
