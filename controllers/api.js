@@ -36,17 +36,6 @@ router.post("/api/network", function(req, res) {
 router.post("/api/user", function(req, res) {
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
-<<<<<<< HEAD
-      .then(() =>{
-        /* networkFunctions.getAll(imdb.projects).then(
-          (castlist) => {console.log(castlist);}
-        ); */
-        res.send(imdb.user);
-        networkFunctions.getAll(user.projects)
-        .then(cast => {
-          console.log(cast);
-        }); 
-=======
       .then(() => {
         /* networkFunctions.init(imdb.projects)
         .then(() => {
@@ -60,7 +49,6 @@ router.post("/api/user", function(req, res) {
             });
         ); */ 
         res.send({profile: imdb.user, projects: imdb.projects});
->>>>>>> master
       });
 })
   //IMDB.init(req.body.googleID, req.body.imdbID);
