@@ -43,7 +43,7 @@ function IMDB ()
                         job.title_id = job.title_url.split("/")[2];
                         job.title_cast_url = `https://www.imdb.com${job.title_url.split("?")[0]}fullcredits?ref_=tt_cl_sm#cast`
                         self.projects.push(job);
-                        db.Job.findOrCreate({where: {projectID: job.title_id, userID: self.user.imdbID},defaults:{roleID: role.shortName}});
+                        db.Job.findOrCreate({where: {projectID: job.title_id, userID: self.user.imdbID, roleID: role.shortName}});
                         db.Project.findOrCreate({where: {projectID: job.title_id},defaults:{name: job.title}});   
                     });                    
                     if (indx === self.roles.length) resolve(true);
