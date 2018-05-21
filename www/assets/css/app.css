@@ -62,6 +62,10 @@ body {
     font-size: 20px;
 }
 
+.data-table {
+    overflow-x: unset;
+}
+
 .f7-icons {
     float: right;
     margin-right: 14px;
@@ -124,6 +128,16 @@ body {
 
 #profile-pic {
     padding-top: 10px;
+}
+
+.profileCard {
+    background: rgba(255,255,255,.15) !important;
+    position: relative;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 98% !important;
+    max-width: 750px !important;
+    margin: auto !important;
 }
 
 .sheet-modal-inner .item-title.item-label {

@@ -5,11 +5,21 @@ routes = [
   },
   {
     path: '/home',
-    url: './index.html'
+    url: './index.html',
+    on: {
+      pageAfterIn: function (e, page) {
+        location.reload();
+      },
+    }
   },
   {
     path: '/network',
     componentUrl: './assets/pages/network.html',
+    on: {
+      pageAfterIn: function (e, page) {
+          loadD3();
+      },
+    }
   },
   {
     path: '/profile',
