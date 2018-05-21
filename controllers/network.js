@@ -71,7 +71,9 @@ network = {
             });
         })            
     },
-    
+    getUserImdbId: function(gID){
+        return db.User.findOne("where")
+    }
 }
 
 module.exports = network;

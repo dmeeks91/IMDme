@@ -1,7 +1,8 @@
-var db = require("../models"),
+var cnstrctIMDB = require("../scrapeConstructor"),
+    db = require("../models"),
     express = require("express"),
-    networkFunctions = require("./network"),
-    cnstrctIMDB = require("../scrapeConstructor"),
+    Network = require("./network"),
+    profile = require("./userProfile"),
     router = express.Router();
 
 // get route -> index
@@ -15,33 +16,64 @@ router.get("/api/gUser/:id", function(req, res) {
 });
 
 router.get("/api/user/profile/:id", function(req, res) {
-  var user = {
-    id:req.params.id,
-  };
+  var user = {},
+      imdb = new cnstrctIMDB();
+  
+  imdb.findUserInDB("googleID", req.params.id)
+  .then(thisUser => {
+    user = thisUser.dataValues;
+    profile.getJobs(user.imdbID)
+    .then(jobCount => {
+      user.jobs = jobCount;
+      profile.getConnections(user.imdbID)
+      .then(connections => {
+        user.connections = connections;
+        profile.getRoles(user.imdbID)
+        .then(roles => {
+          user.roles = roles;
+          profile.getD3Nodes(user.imdbID)
+          .then(nodes => {
+            user.nodes = nodes;
+            profile.getD3Links(user.imdbID)
+            .then(links => {
+              user.links = links;
+              res.send(user);
+            })
+          })
+        })
+      })
+    }
+    );
+  })
 
   //Get jobs
-
+  /* db.sequelize.query(`SELECT COUNT(DISTINCT projectID) jobs 
+                      FROM Jobs WHERE userID = '${user.id}';`,
+                      {type: db.sequelize.QueryTypes.SELECT})
+              .then(jobs => {
+                user.jobs = jobs.count;
+              }); */
   //Get connections
 
   //Get roles
-  db.sequelize.query("SELECT COUNT(*) FROM imdme_db.jobs",
+ /*  db.sequelize.query("SELECT COUNT(*) FROM imdme_db.jobs",
   { type: db.sequelize.QueryTypes.SELECT})
   .then(count => {
     console.log(count);
-  });
+  }); */
 
   
 });
 
 router.post("/api/network", function(req, res) {
-  networkFunctions.init(req.body.projects);
+  Network.init(req.body.projects);
 });
 
 router.post("/api/imdb", function(req, res) {
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
       .then(() => {
-        /* networkFunctions.init(imdb.projects)
+        /* Network.init(imdb.projects)
         .then(() => {
           console.log("Added to Database")}
           (castlist) => {
@@ -58,6 +90,8 @@ router.post("/api/imdb", function(req, res) {
 
 //sync imdb
 router.put("/api/imdb/sync", function(req, res) {
+  Network.imdb(req.body.googleID, req.body.imdbID)
+  .then()
   var imdb = new cnstrctIMDB();
       imdb.init(req.body.googleID, req.body.imdbID)
       .then(() => { 

@@ -15,7 +15,8 @@
       var self = this;
       app.request.get(`/api/user/profile/${self.user.googleID}`, self.user, 
         function(data){
-          console.log(JSON.parse(data));
+          self.userProfile = JSON.parse(data);
+          app.router.navigate("/profile/");
         });
     },
     hasUserProfile: function() {
