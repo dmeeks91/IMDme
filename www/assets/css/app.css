@@ -126,6 +126,10 @@ body {
     border: rgb(80, 79, 79) solid 1px;
 }
 
+.ios .block-strong {
+    background: unset;
+}
+
 .ios .subnavbar-inner {
     background-color: rgb(33, 150, 243)
 }
@@ -197,6 +201,10 @@ body {
 
 #profile-pic {
     padding-top: 10px;
+}
+
+.md.device-desktop .data-table tbody tr:hover {
+    background: unset; /* #8a2be247; */
 }
 
 .profileCard,
