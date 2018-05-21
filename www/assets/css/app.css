@@ -27,35 +27,10 @@ a .button.tab-link-active .nonLogin {
     background-color: rgb(63, 4, 173);
 }
 
-.ios .segmented .button:disabled {
-    border-radius: 5px 0 0 5px;
-    border-left-width: 1px;
-    border-left-style: solid;
-}
-
-.ios .button.tab-link {
-    color: white;
-    border: rgb(80, 79, 79) solid 1px;
-}
-
-.ios button {
-    border: 1px solid #4c4c4c;
-}
-
-.ios .subnavbar:after {
-    background-color: transparent;
-}
-
 .button.tab-link-active {
     background-color: rgb(63, 4, 173);;
 }
 
-.segmented .button:focus {
-    border-radius: 5px 0 0 5px;
-    border-left-width: 1px;
-    border-left-style: solid;
-    
-}
 
 #block-name {
     text-align: center;
@@ -66,20 +41,6 @@ a .button.tab-link-active .nonLogin {
 
 body {
     font-family: 'Poppins', sans-serif !important;
-}
-.ios .button.tab-link-active{
-    background-color: rgb(60, 27, 83);
-    color: white;
-}
-.links line {
-    stroke: #999;
-    stroke-opacity: 0.6;
-  }
-  
-.nodes circle {
-    stroke: #fff;
-    stroke-width: 1.5px;
-
 }
 .card {
     background: rgba(255,255,255,.15) !important;
@@ -126,6 +87,43 @@ body {
     text-align: center;
 }
 
+.ios .button.tab-link-active{
+    background-color: rgb(60, 27, 83);
+    color: white;
+}
+
+.ios .segmented .button:disabled {
+    border-radius: 5px 0 0 5px;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+.ios .button.tab-link {
+    color: white;
+    border: rgb(80, 79, 79) solid 1px;
+}
+
+.ios .subnavbar-inner {
+    background-color: rgb(33, 150, 243)
+}
+
+.ios button {
+    border: 1px solid #4c4c4c;
+}
+
+.ios .subnavbar:after {
+    background-color: transparent;
+}
+
+.links line {
+    stroke: #fff;
+    stroke-opacity: 0.6;
+}
+
+#mainLogo{
+    width: 100%;
+}
+
 .md .card {
     margin: unset;
     -webkit-box-shadow: unset;
@@ -139,7 +137,6 @@ body {
 .md .button.tab-link-active {
    background-color: rgb(60, 27, 83);
 }
-
 
 .modalBtn {
     margin-top: 5%;
@@ -164,6 +161,12 @@ body {
 #navTitle {
     text-align: center;
 }
+  
+.nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+
+}
 
 .page-content {
     background: linear-gradient(45deg,#21d4fd, #b721ff);
@@ -183,14 +186,17 @@ body {
     margin: auto !important;
 }
 
+.segmented .button:focus {
+    border-radius: 5px 0 0 5px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    
+}
+
 .sheet-modal-inner .item-title.item-label {
     font-size: 90%;
     font-weight: bold;
     line-height: unset;
-}
-
-.ios .subnavbar-inner {
-    background-color: rgb(33, 150, 243)
 }
 
 .title {
@@ -203,9 +209,6 @@ body {
 }
 
 
-#mainLogo{
-    width: 100%;
-}
 
 
 
