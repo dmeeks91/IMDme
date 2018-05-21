@@ -1,12 +1,14 @@
 var loadD3 = function() {
     //create somewhere to put the force directed graph
     var svg = d3.select("svg"),
-        width = $("#networkCard").height(),//app.width,//+svg.attr("width")/2,
-        height = $("#networkCard").width();//app.height;//+svg.attr("height");
+        width = $( window ).width();
+        height = $( window ).height();
+        $("svg").attr("width", width);
+        $("svg").attr("height", height);
         
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-        var nodes_data = gOAuth.userProfile.nodes;
+    var nodes_data = gOAuth.userProfile.nodes;
 
     //set up the simulation 
     //nodes only for now 
@@ -20,7 +22,7 @@ var loadD3 = function() {
     simulation
         .force("link", d3.forceLink().id(function(d) { return d.id; }))
         .force("charge_force", d3.forceManyBody())
-        .force("center_force", d3.forceCenter(width, height));
+        .force("center_force", d3.forceCenter(width / 2, height / 2));
 
     //Time for the links 
 
@@ -66,13 +68,13 @@ var loadD3 = function() {
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
     legend.append("rect")
-        .attr("x", width*1.2)
+        .attr("x", width*0.82)
         .attr("width", 18)
         .attr("height", 18)
         .style("fill", color);
 
     legend.append("text")
-        .attr("x", width - 24)
+        .attr("x", width*0.8)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
