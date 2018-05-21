@@ -30,7 +30,6 @@
   <link rel="stylesheet" href="assets/css/framework7.min.css">
   <link rel="stylesheet" href="assets/css/framework7-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-  <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/app.css">
 
 </head>
@@ -57,7 +56,7 @@
         </div>
       </div>
       <div class="page-content">
-        <div class="appFrame">
+        <div class="appFrame landscape">
             <div class="card">
               <div class="card-header">
               </div>
@@ -110,7 +109,7 @@
   $(window).resize(function(){
       var width = window.screen.width,
           height = window.screen.height,
-          action = (height < 650 && width > height) ? "addClass" : "removeClass";
+          action = (width > height) ? "addClass" : "removeClass";
 
       $(".appFrame")[action]("landscape");
   })
