@@ -33,8 +33,8 @@ routes = [
     },
   },
   {
-    path: '/feed',
-    componentUrl: './assets/pages/feed.html',
+    path: '/network',
+    componentUrl: './assets/pages/network.html',
   },
   {
     path: '/profile',
