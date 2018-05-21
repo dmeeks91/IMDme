@@ -67,16 +67,20 @@ a .button.tab-link-active .nonLogin {
 body {
     font-family: 'Poppins', sans-serif !important;
 }
-
+.ios .button.tab-link-active{
+    background-color: rgb(60, 27, 83);
+    color: white;
+}
 .links line {
     stroke: #999;
     stroke-opacity: 0.6;
   }
   
-  .nodes circle {
+.nodes circle {
     stroke: #fff;
-  }
     stroke-width: 1.5px;
+
+}
 .card {
     background: rgba(255,255,255,.15) !important;
     position: relative;
