@@ -15,8 +15,46 @@
     padding-top: 30%;
 }
 
-.appFrame.landscape{
-    padding-top: 5%
+.appFrame.landscape {
+    padding-top: 5%;
+    width: 50%;
+    margin: auto;
+    width: 500;
+}
+
+a .button.tab-link-active .nonLogin {
+    color: rgb(63, 4, 173);;
+    background-color: rgb(63, 4, 173);
+}
+
+.ios .segmented .button:disabled {
+    border-radius: 5px 0 0 5px;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+.ios .button.tab-link {
+    color: white;
+    border: rgb(80, 79, 79) solid 1px;
+}
+
+.ios button {
+    border: 1px solid #4c4c4c;
+}
+
+.ios .subnavbar:after {
+    background-color: transparent;
+}
+
+.button.tab-link-active {
+    background-color: rgb(63, 4, 173);;
+}
+
+.segmented .button:focus {
+    border-radius: 5px 0 0 5px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    
 }
 
 #block-name {
@@ -29,16 +67,20 @@
 body {
     font-family: 'Poppins', sans-serif !important;
 }
-
+.ios .button.tab-link-active{
+    background-color: rgb(60, 27, 83);
+    color: white;
+}
 .links line {
     stroke: #999;
     stroke-opacity: 0.6;
   }
   
-  .nodes circle {
+.nodes circle {
     stroke: #fff;
     stroke-width: 1.5px;
-  }
+
+}
 .card {
     background: rgba(255,255,255,.15) !important;
     position: relative;
@@ -84,19 +126,20 @@ body {
     text-align: center;
 }
 
-#logout-button {
-    background-color: #7326b28f;
-}
-
 .md .card {
     margin: unset;
     -webkit-box-shadow: unset;
     box-shadow: unset;
 }
 
-.md .list .item-inner:after {
-    content: none;
+.md .card-footer {
+    margin-bottom: 20px;
 }
+
+.md .button.tab-link-active {
+   background-color: rgb(60, 27, 83);
+}
+
 
 .modalBtn {
     margin-top: 5%;
@@ -114,7 +157,7 @@ body {
     width: 100%;
 }
 
-.navbar, .md .navbar {
+.navbar, .md .navbar, .ios .navbar {
     background: #131313ba;
 }
 
@@ -146,8 +189,8 @@ body {
     line-height: unset;
 }
 
-.subnavbar, .md .subnavbar {
-    background: #0000004d;
+.ios .subnavbar-inner {
+    background-color: rgb(33, 150, 243)
 }
 
 .title {
@@ -163,5 +206,6 @@ body {
 #mainLogo{
     width: 100%;
 }
+
 
 
