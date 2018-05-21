@@ -35,16 +35,20 @@ network = {
             })
         })
     },
+    imdb: function(gID, imdbID) {
+        var imdb = new cnstrctIMDB();
+        return imdb.init(gID, imdbID);
+    },
     init: function(projects) {
         var self = this; 
 
         return new Promise((resolve, reject) => {
             self.getAll(projects)
             .then(cast => {
-                self.addCastToDb(cast)
+                /* self.addCastToDb(cast)
                 .then(
                     () => resolve(true)
-                );
+                ); */
             })
         });
     },
@@ -67,7 +71,9 @@ network = {
             });
         })            
     },
-    
+    getUserImdbId: function(gID){
+        return db.User.findOne("where")
+    }
 }
 
 module.exports = network;

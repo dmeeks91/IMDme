@@ -7,15 +7,12 @@ FROM Jobs a
 	INNER JOIN (SELECT DISTINCT projectID FROM Jobs WHERE userID = 'nm3053439') p on a.projectID=p.projectID;
   
  -- GET Roles
- SELECT DISTINCT u.name, GROUP_CONCAT(r.jobs SEPARATOR ', ') 'roles'
- FROM Users u
-	INNER JOIN (SELECT u.userID, CONCAT(r.name,' (', COUNT(DISTINCT u.projectID),')') jobs
-				FROM Jobs u
-					INNER JOIN Roles r on u.roleID = r.short_name
-				WHERE u.userID = 'nm3053439'
-				GROUP BY u.userID, r.name) r ON u.imdbID = r.userID 
- WHERE u.imdbID = 'nm3053439'
- GROUP BY u.imdbID;
+SELECT u.userID, COUNT(DISTINCT u.projectID) count_, CONCAT(r.name,' (', COUNT(DISTINCT u.projectID),')') jobs
+FROM Jobs u
+    INNER JOIN Roles r on u.roleID = r.short_name
+WHERE u.userID = 'nm3053439'
+GROUP BY u.userID, r.name
+ORDER BY count_ DESC;
  
  -- Nodes for d3.js
 SELECT DISTINCT u1.name AS 'id', r1.name AS 'group'
@@ -29,9 +26,9 @@ FROM Jobs a
 			GROUP BY userID, roleID
 		 ) a
          GROUP BY a.userID
-    ) b ON a.userID = b.userID AND a.roleID = b.roleID
+    ) b ON a.userID = b.userID
     LEFT JOIN Users u1 on a.userID = u1.imdbID
-    LEFT JOIN Roles r1 on a.roleID = r1.short_name;
+    LEFT JOIN Roles r1 on b.roleID = r1.short_name;
  
  -- Links for d3.js
 SELECT u1.name AS 'source', u2.name AS 'target', COUNT(DISTINCT a.projectID) AS 'value'

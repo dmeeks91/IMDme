@@ -166,11 +166,7 @@ function IMDB ()
         });        
     };
     this.updateUser = function(user) {
-        var self = this;//,
-        /* param = (user.googleID) 
-                ? {googleID: self.user.gID} 
-                : {imdbID: self.user.imdbID}; */
-        
+        var self = this;        
         return db.User.update(user, {where:{imdbID: self.user.imdbID}});
     };
     this.userInDB = function() {
