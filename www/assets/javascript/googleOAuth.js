@@ -15,7 +15,8 @@
       var self = this;
       app.request.get(`/api/user/profile/${self.user.googleID}`, self.user, 
         function(data){
-          console.log(data);
+          self.userProfile = JSON.parse(data);
+          app.router.navigate("/profile/");
         });
     },
     hasUserProfile: function() {
@@ -30,8 +31,7 @@
           }
           else
           {
-            //self.logIn();
-            
+            self.logIn();
           }
         });
     },   
@@ -41,12 +41,13 @@
       $("#my-signin2").hide();
       $("#loginBtn").html("Log Out");
       $(".nonLogin").removeClass("disabled");
+      this.getUserProfile();
     },
     logOut: function() {
       var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () { 
-          $("#userImg").attr("src","assets/images/user.png");
-          $("#userName").html("");
+          //$("#userImg").attr("src","assets/images/user.png");
+          //$("#userName").html("");
           $("#my-signin2").show();
           $("#loginBtn").html("Log In");
           $(".nonLogin").addClass("disabled");
@@ -119,17 +120,5 @@ $(document).ready(function() {
   $(".modalBtn").on("click", function(e) {
       e.preventDefault();
       gOAuth.validateIMDB();
-  });    
-  
-/*   $$(document).on("page:beforein", "#index.page" ,function(){
-    if(gOAuth.user.googleID)
-    {
-      gOAuth.showImage();
-    }
-    else
-    {
-      renderButton();
-    }
-  }); */
-  
+  });      
 });
