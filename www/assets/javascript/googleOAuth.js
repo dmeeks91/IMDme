@@ -142,11 +142,12 @@
     },
     validateIMDB: function() {
       var self = this,
-          tempUrl = "https://www.imdb.com/name/",
           userUrl = $("#IMDBUrl")[0].value,
-          imdbID = userUrl.replace(tempUrl,"").replace("/","");
+          isWeb = userUrl.indexOf("https://www.imdb.com/name/") != -1,
+          isMobile = userUrl.indexOf("https://m.imdb.com/name/") != -1,
+          imdbID = userUrl.split("/")[userUrl.split("/").indexOf("name") + 1];
 
-      if (userUrl.indexOf(tempUrl) === 0 && imdbID.length === 9)
+      if ((isWeb || isMobile) && imdbID.length === 9)
       {
           self.user.imdbID = imdbID;
           self.addIMDB({googleID: self.user.googleID, imdbID: self.user.imdbID});
