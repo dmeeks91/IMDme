@@ -45,12 +45,11 @@
     },
     logOut: function() {
       var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () { 
-          //$("#userImg").attr("src","assets/images/user.png");
-          //$("#userName").html("");
-          $("#my-signin2").show();
-          $("#loginBtn").html("Log In");
-          $(".nonLogin").addClass("disabled");
+        auth2.signOut().then(function () {
+          /* $("#my-signin2").show();
+          $("#loginBtn").html("Log In");*/
+          $(".nonLogin").addClass("disabled"); 
+          app.router.navigate("/home/");
           gOAuth.user = {};
         });
     },
@@ -114,7 +113,8 @@
   }
 
 $(document).ready(function() {
-  $("#loginBtn").on("click", function(){   
+  $("#logout-button").on("click", function(){   
+      e.preventDefault();
       gOAuth.logOut(); 
   });    
   $(".modalBtn").on("click", function(e) {
