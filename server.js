@@ -28,7 +28,7 @@ app.use(routes);
   var imdb = new IMDBconstruct();
   //imdb.init("","nm0004898");
   //imdb.init("","nm7458565");
-  imdb.init("","nm3357095");
+  //imdb.init("","nm3357095");
 // nm0004898
 // nm0005125
 // nm0628601

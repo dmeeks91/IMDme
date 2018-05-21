@@ -30,6 +30,7 @@ routes = [
       },
       pageInit: function (e, page) {
         // do something when page initialized
+        //gOAuth.extendNetwork();
       }
     }
   },
