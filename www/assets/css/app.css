@@ -27,6 +27,10 @@ a .button.tab-link-active .nonLogin {
     background-color: rgb(63, 4, 173);
 }
 
+.emailRow {
+    text-align: center;
+}
+
 .ios .segmented .button:disabled {
     border-radius: 5px 0 0 5px;
     border-left-width: 1px;
@@ -173,7 +177,8 @@ body {
     padding-top: 10px;
 }
 
-.profileCard {
+.profileCard,
+.networkCard {
     background: rgba(255,255,255,.15) !important;
     position: relative;
     border-radius: 5px;
@@ -181,6 +186,11 @@ body {
     width: 98% !important;
     max-width: 750px !important;
     margin: auto !important;
+}
+
+#roleCell {
+    padding-top: 5%;
+    line-height: 250%;
 }
 
 .sheet-modal-inner .item-title.item-label {

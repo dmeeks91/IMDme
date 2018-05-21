@@ -107,8 +107,8 @@
 </div>  
 <script>
   $(window).resize(function(){
-      var width = window.screen.width,
-          height = window.screen.height,
+      var width = app.width,
+          height = app.height,
           action = (width > height) ? "addClass" : "removeClass";
 
       $(".appFrame")[action]("landscape");

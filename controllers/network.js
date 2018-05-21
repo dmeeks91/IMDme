@@ -20,19 +20,25 @@ network = {
         });
     },
     getAll: function(projects) {
-        var self = this,
-            indx = 0;
-
+        var self = this;
         return new Promise ((resolve, reject) => {
-            projects.forEach(project => {
-                self.thisCast(project.title_cast_url)
+            /* projects.forEach(project => {
+                self.thisCast(project.title_cast_url, project.title_id)
                 .then(result => {
-                    indx ++;
+                    if(self.castList.length >= 100)
+                    {
+                        resolve(self.castList);
+                    }
+                    else
+                    {
+                        indx ++;
+                    }
+                    
                     if (indx === projects.length) {
                         resolve(self.castList);
                     };
                 })
-            })
+            }) */
         })
     },
     imdb: function(gID, imdbID) {
@@ -45,34 +51,27 @@ network = {
         return new Promise((resolve, reject) => {
             self.getAll(projects)
             .then(cast => {
-                /* self.addCastToDb(cast)
-                .then(
-                    () => resolve(true)
-                ); */
+                resolve(self.castList);
             })
         });
     },
-    thisCast: function(projectUrl){
-        var self = this;
-            //obj = new cnstrctIMDB();
-        
+    thisCast: function(projectUrl, pID){
+        var self = this
+            obj = new cnstrctIMDB();        
         return new Promise((resolve, reject) => {
-            var obj = new cnstrctIMDB();
-            obj.getCast(projectUrl)
+            obj.getCast(projectUrl, pID)
             .then((cast) => {
                 //only add to cast if distinct
                 cast.forEach(person => {
                     if (!self.castList.find(existing => person.id === existing.id))
                     {
                         self.castList.push(person);
+                        //if(self.castList.length >= 100) resolve(true);
                     }
                 });
-                resolve(true);
+                resolve(self.castList);
             });
         })            
-    },
-    getUserImdbId: function(gID){
-        return db.User.findOne("where")
     }
 }
 

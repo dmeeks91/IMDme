@@ -1,15 +1,68 @@
   //https://developers.google.com/identity/sign-in/web
   var gOAuth = {
+    castlist:[],
     user: {},
+    network: [],
+    projects: [],
     addIMDB: function(data) {
       var self = this;
       app.preloader.show();
       //framework7 router code
-      app.request.post("api/user", data, function(user){
-        user = JSON.parse(user);
-        gOAuth.imdb = user;
+      app.request.post("/api/imdb/", data, function(data){
+        //Code to start building network ... need to put in web worker
+        /* self.projects = JSON.parse(data).projects;
+        self.getCastList(); */
         self.logIn();     
-      })
+      });
+    },
+    extendNetwork: function() {
+      if(!gOAuth.network) return;
+
+      var self = this;//,
+          //imdbID = self.castlist[0];
+
+      if(self.castlist.length > 0)
+      {
+        app.preloader.show();
+        
+        app.request.post(`/api/network/${self.castlist[0].id}`,{}, 
+        function(data){
+          self.castlist.shift();
+          self.extendNetwork();
+        });
+      }
+      else
+      {
+        self.logIn();
+      }
+    },
+    getCastList: function() {
+      if(!gOAuth.projects) return;
+
+      var self = this,
+          thisCast = [];
+
+      if(self.castlist.length < 2)//self.projects.length > 0 && 
+      {
+        app.preloader.show();
+        
+        app.request.post(`/api/castList`, 
+        self.projects[0], function(data){
+          self.projects.shift();
+          thisCast = JSON.parse(data);   
+          thisCast.forEach(person => {
+            if (!self.castlist.find(existing => person.id === existing.id))
+            {
+                if (self.castlist.length < 10) self.castlist.push(person);
+            }
+          });
+          self.getCastList();
+        });
+      }
+      else
+      {
+        self.extendNetwork();
+      }
     },
     getUserProfile: function() {
       var self = this;
@@ -23,14 +76,15 @@
       var self = this;
       app.request.get(`/api/gUser/${self.user.googleID}`, self.user, 
         function(data){
-          var dataObj = (data === "") ? {imdbID:""} : JSON.parse(data);
-          if(dataObj.imdbID === "")
+          self.imdb = (data === "") ? {imdbID:""} : JSON.parse(data);
+          if(self.imdb.imdbID === "")
           {
             $("#needIMDB").html(`Welcome, ${self.user.givenName}!`);
             app.sheet.open('.my-sheet');
           }
           else
           {
+            //self.syncIMDB(); Takes to long let user choose to update on different screen
             self.logIn();
           }
         });
@@ -72,12 +126,19 @@
               imgURL: profile.getImageUrl(),
               email: profile.getEmail()
             };        
-          self.showImage();
+          //self.showImage();
+          self.hasUserProfile();
     },
     showImage: function() {
       $("#userImg").attr("src",this.user.imgURL);
       $("#userName").html(this.user.fullName);      
       this.hasUserProfile();
+    },
+    syncIMDB: function() {
+      var self = this;
+      app.request.post("/api/imdb/sync", self.imdb, function(data){
+        self.logIn();     
+      })
     },
     validateIMDB: function() {
       var self = this,
@@ -113,6 +174,7 @@
   }
 
 $(document).ready(function() {
+  $(window).resize();
   $("#logout-button").on("click", function(){   
       e.preventDefault();
       gOAuth.logOut(); 
