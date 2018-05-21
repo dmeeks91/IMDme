@@ -71,7 +71,7 @@ function IMDB ()
         return new Promise ((resolve, reject) => {            
             self.scrapeRoles().then(function({ data, response }){
                 //set user Name
-                self.user.name = data.user[0].name;  
+                self.user.name = (data.user[0]) ? data.user[0].name : null;  
                 //set roles and add to db
                 self.setRoles(data.roles);
                 //check if user is in DB to add or update user details
