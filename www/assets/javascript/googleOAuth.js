@@ -81,6 +81,8 @@
           {
             $("#needIMDB").html(`Welcome, ${self.user.givenName}!`);
             app.sheet.open('.my-sheet');
+            var modalHeight = $("#my-form").height();
+            $(".sheet-modal").height(modalHeight + 100);
           }
           else
           {
